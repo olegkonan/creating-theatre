@@ -13,3 +13,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.main {
+  gap: 10px;
+  aside {
+    border-radius: 10px;
+  }
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  height: 5%;
+}
