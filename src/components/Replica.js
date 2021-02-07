@@ -2,14 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 
 export class Replica extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      acts: 3,
-      character: "Someone"
-    }
-  }
-
   render() {
     return (
       <aside className="col-sm-8 mt-3 bg-light">
@@ -17,26 +9,25 @@ export class Replica extends React.Component {
         <form className="d-flex flex-column">
           <label className="align-self-center mb-0" htmlFor="act">Акт</label>
           <Select 
-            options={new Array(this.state.acts).fill("1").map((key, index) => {
+            options={new Array(parseInt(this.props.actsCount)).fill("1").map((key, index) => {
               return {
                 value: index + 1, label: index + 1
               }
             })} />
           <label className="align-self-center mb-0" htmlFor="scene">Сцена</label>
-          <input 
-            className="form-control form-control-sm" 
-            type="number" 
-            name="" 
-            id="scene" 
-          />
+          <Select 
+            options={new Array(parseInt(this.props.scenesCount)).fill("1").map((key, index) => {
+              return {
+                value: index + 1, label: index + 1
+              }
+            })} />
           <label className="align-self-center mb-0" htmlFor="character">Персонаж</label>
-          <select 
-            className="form-control form-control-sm" 
-            name="character" 
-            id=""
-          >
-
-          </select>
+          <Select 
+            options={this.props.characters.map((character) => {
+              return {
+                value: character.name, label: character.name
+              }
+            })} />
           <label className="align-self-center mb-0" htmlFor="text">Реплика</label>
           <textarea 
             className="form-control" 

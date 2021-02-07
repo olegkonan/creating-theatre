@@ -7,7 +7,8 @@ export class CreateScenario extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      acts: JSON.parse(localStorage.getItem('acts')) || 0,
+      acts: JSON.parse(localStorage.getItem('acts')) || 1,
+      scenes: JSON.parse(localStorage.getItem('scenes')) || 1,
       character: {
         name: "",
         description: ""
@@ -18,6 +19,10 @@ export class CreateScenario extends React.Component {
 
   updateActsCount = (acts) => {
     this.setState({ acts })
+  }
+
+  updateScenesCount = (scenes) => {
+    this.setState({ scenes })
   }
 
   updateCharacter = (newCharacter) => {
@@ -41,19 +46,33 @@ export class CreateScenario extends React.Component {
     })
   }
 
+  deleteCharacters = () => {
+    localStorage.removeItem('acts');
+    this.setState({characters: []});
+  }
+
   render() {
     return (
       <Fragment>
         <Parameters 
           actsCount={this.state.acts} 
+          scenesCount={this.state.scenes} 
           character={this.state.character} 
           updateActsCount={this.updateActsCount} 
+          updateScenesCount={this.updateScenesCount}
           updateCharacter={this.updateCharacter} 
           updateCharacters={this.updateCharacters}
         />
         <div className="d-flex main">
-          <Replica />
-          <Characters />
+          <Replica 
+            actsCount={this.state.acts} 
+            scenesCount={this.state.scenes} 
+            characters={this.state.characters}
+          />
+          <Characters 
+            characters={this.state.characters}
+            deleteCharacters={this.deleteCharacters}
+          />
         </div>
       </Fragment>
     )

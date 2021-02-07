@@ -4,9 +4,17 @@ export class Parameters extends React.Component {
 
   changeActsCount = e => {
     const actsCount = e.target.value;
-    if (actsCount >= 0) { 
+    if (actsCount > 0) { 
       this.props.updateActsCount(e.target.value);
       localStorage.setItem('acts', e.target.value);
+    }
+  }
+
+  changeScenesCount = e => {
+    const scenesCount = e.target.value;
+    if (scenesCount > 0) { 
+      this.props.updateScenesCount(e.target.value);
+      localStorage.setItem('scenes', e.target.value);
     }
   }
 
@@ -23,14 +31,21 @@ export class Parameters extends React.Component {
     return (
       <div className="container-lg d-flex flex-column bg-light">
         <h5 className="align-self-center text-center">Параметры пьесы</h5>
-        <div className="input-group input-group-sm mb-1 align-self-center col-sm-3">
+        <div className="input-group input-group-sm mb-1 align-self-center col-sm-5">
           <input 
             className="form-control" 
             type="number" 
             value={this.props.actsCount} 
             onChange={this.changeActsCount}
           />
-          <span className="">акта(ов)</span>
+          <span className="mr-1">акта(ов)</span>
+          <input 
+            className="form-control" 
+            type="number" 
+            value={this.props.scenesCount} 
+            onChange={this.changeScenesCount}
+          />
+          <span className="">сцен(ы)</span>
         </div>
         <form 
           className="d-flex justify-content-between align-items-center"
