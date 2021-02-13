@@ -1,11 +1,30 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
-export class ShowScenario extends React.Component {
-  render() {
-    return (
-      <div className="main">
-        <span>Здесь будет страница просмотра сценария</span>
-      </div>
-    )
+export const ShowScenario = () => {
+  const [script, updateScript] = useState([]);
+
+  const fetchNotes = async () => {
+    const res = await axios.get('https://create-scenario-default-rtdb.firebaseio.com/play.json')
+
+    const payload = Object.keys(res.data).map(key => {
+      return {
+        ...res.data[key],
+        id: key
+      }
+    })
+    updateScript(payload)
   }
+
+  useEffect(() => {
+    fetchNotes()
+  }, [])
+  
+  return (
+    <ul>
+      {script.map(element => (
+        <li key={element.id}>{element.act}{element.scene}{element.character}{element.text}</li>
+      ))}
+    </ul>
+  )
 }
